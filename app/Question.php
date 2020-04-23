@@ -13,9 +13,15 @@ class Question extends Model
     }
 
     public function setTitleAttribute($value) {
-
         $this->attributes['title'] = $value;
         $this->attributes['slug'] =  strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $value)));;
-        
+    }
+
+    public function getUrlAttribute() {
+        return route('questions.show', $this->id);
+    }
+
+    public function getCreateDateAttribute() {
+        return $this->created_at->diffForHumans();
     }
 }
