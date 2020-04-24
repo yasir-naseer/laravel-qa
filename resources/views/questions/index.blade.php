@@ -37,6 +37,11 @@
                                     <h3 class="mt-0"><a href="{{ $question->url }}">{{ $question->title}}</a></h3>
                                     <div class="ml-auto">
                                         <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-success">Edit</a>
+                                        <form action="{{ route('questions.destroy', $question->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                                 {{ \Illuminate\Support\Str::limit($question->body, 250, '...') }}
