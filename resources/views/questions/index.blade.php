@@ -31,6 +31,7 @@
                                 <div class="views">
                                     {{ $question->views . " " .  \Illuminate\Support\Str::plural('view', $question->views) }}
                                 </div>
+                                
                             </div>
                             <div class="media-body">
                                 <div class="d-flex align-items-center">
