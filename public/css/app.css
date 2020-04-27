@@ -10917,3 +10917,42 @@ a.text-dark:focus {
   background-color: #38c172;
 }
 
+.votes-control {
+  min-width: 60px;
+  margin-right: 30px;
+  text-align: center;
+  color: #495057;
+}
+
+.votes-control span,
+.votes-control a {
+  display: block;
+}
+
+.votes-control span.votes-count {
+  font-size: 25px;
+}
+
+.votes-control span.favorite {
+  font-size: 12px;
+}
+
+.votes-control a {
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.votes-control a.off,
+.votes-control a.off:hover {
+  color: #adb5bd;
+}
+
+.votes-control a.favorite.favorited,
+.votes-control a.favorite.favorited:hover {
+  color: #ffed4a;
+}
+
+.votes-control a.vote-accepted {
+  color: #38c172;
+}
+
