@@ -6,7 +6,7 @@
      
     @error('title')
      <strong class="invalid-feedback">{{ $message }}</strong>
-     @enderror
+    @enderror
     
 </div>
 
