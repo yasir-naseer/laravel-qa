@@ -20,7 +20,22 @@
                             </div>  
                             <div class="media-body">  
                                 {{ $answer->body}}
-                                <div class="float-right mt-3">
+                                <div class="row mt-3">
+                                    <div class="col-4">
+                                        @if(Auth::user()->can('update', $answer))
+                                            <a href="{{ route('questions.answers.edit', [$question->id, $answer->id]) }}" class="btn btn-sm btn-outline-success">Edit</a>
+                                        @endif
+                                        @if(Auth::user()->can('delete', $answer))
+                                            <form action="{{ route('questions.answers.destroy', [$question->id, $answer->id] ) }}" method="POST" class="d-inline" onclick="return confirm('Are you sure?')"> 
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                    <div class="col-4">
+                                    </div>
+                                    <div class="col-4 ">
                                     <span class="text-muted">Answered {{ $answer->created_date}}</span>
                                     <div class="media mt-2">
                                         <a href="{{ $answer->user->url }}" class="pr-2">
@@ -32,6 +47,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
+                                
                                 
                             </div>
                         </div>
