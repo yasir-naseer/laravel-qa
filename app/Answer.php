@@ -23,10 +23,26 @@ class Answer extends Model
             $answer->question->increment('answers_count');
 
         });
+
+        static::deleted(function($answer) {
+            $question = $answer->question;
+            $answer->question->decrement('answers_count');
+
+            if($answer->id === $question->best_answer_id) {
+                $question->best_answer_id = NULL;
+                $question->save();
+            }
+        });
     }
 
     public function getCreatedDateAttribute() {
         return $this->created_at->diffForHumans();
+    }
+
+    public function getStatusAttribute() {
+        if($this->id === $this->question->best_answer_id) {
+            return "vote-accepted";
+        }
     }
 
     
