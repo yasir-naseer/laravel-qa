@@ -19,8 +19,8 @@
                                         <i class="fas fa-check fa-2x"></i>
                                     </a>
                                     <form action="{{ route('answers.accept', $answer->id) }}" method="POST" id="accept-form-{{ $answer->id }}">
-                                @csrf
-                                </form>
+                                        @csrf
+                                    </form>
                                 @else
                                     @if($answer->accepted)
                                     <a  title="mark this answer as best" class=" {{ $answer->status }} mt-2">
