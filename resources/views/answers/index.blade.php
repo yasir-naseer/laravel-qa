@@ -14,24 +14,36 @@
                                 <a title="This answer is not useful" class="vote-down off">
                                     <i class="fas fa-caret-down fa-3x"></i>
                                 </a>
-                                <a title="mark this answer as best" class=" {{ $answer->status }} mt-2">
-                                    <i class="fas fa-check fa-2x"></i>
-                                </a>
+                                @can('accept', $answer)
+                                    <a onclick="event.preventDefault(); document.getElementById('accept-form-{{ $answer->id }}').submit();" title="mark this answer as best" class=" {{ $answer->status }} mt-2">
+                                        <i class="fas fa-check fa-2x"></i>
+                                    </a>
+                                    <form action="{{ route('answers.accept', $answer->id) }}" method="POST" id="accept-form-{{ $answer->id }}">
+                                @csrf
+                                </form>
+                                @else
+                                    @if($answer->accepted)
+                                    <a  title="mark this answer as best" class=" {{ $answer->status }} mt-2">
+                                        <i class="fas fa-check fa-2x"></i>
+                                    </a>
+                                    @endif
+
+                                @endcan
                             </div>  
                             <div class="media-body">  
                                 {{ $answer->body}}
                                 <div class="row mt-3">
                                     <div class="col-4">
-                                        @if(Auth::user()->can('update', $answer))
+                                        @can('update', $answer)
                                             <a href="{{ route('questions.answers.edit', [$question->id, $answer->id]) }}" class="btn btn-sm btn-outline-success">Edit</a>
-                                        @endif
-                                        @if(Auth::user()->can('delete', $answer))
+                                        @endcan
+                                        @can('delete', $answer)
                                             <form action="{{ route('questions.answers.destroy', [$question->id, $answer->id] ) }}" method="POST" class="d-inline" onclick="return confirm('Are you sure?')"> 
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                                             </form>
-                                        @endif
+                                        @endcan
                                     </div>
                                     <div class="col-4">
                                     </div>

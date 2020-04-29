@@ -45,5 +45,13 @@ class Answer extends Model
         }
     }
 
+    public function getAcceptedAttribute() {
+        return $this->isAccepted();
+    }
+
+    public function isAccepted() {
+       return  $this->id === $this->question->best_answer_id;
+    }
+
     
 }
