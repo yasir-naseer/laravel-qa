@@ -21,7 +21,7 @@
                         <div class="media">
                             <div class="flex flex-column counters">
                                 <div class="votes">
-                                    <strong> {{ $question->votes}} </strong> {{  \Illuminate\Support\Str::plural('vote', $question->votes) }}
+                                    <strong> {{ $question->votes_count}} </strong> {{  \Illuminate\Support\Str::plural('vote', $question->votes_count) }}
                                 </div>
 
                                 <div class="status {{$question->status}} ">

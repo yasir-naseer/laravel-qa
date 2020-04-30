@@ -18,13 +18,26 @@
 
                     <div class="media">
                         <div class="d-flex flex-column votes-control">
-                            <a title="This Quesiton is useful" class="vote-up">
+                            <a title="This Quesiton is useful" 
+                            class="vote-up {{ Auth::guest() ? 'off' : '' }}"
+                            onclick="event.preventDefault(); document.getElementById('vote-up-question-{{ $question->id }}').submit();"
+                            >
                                 <i class="fas fa-caret-up fa-3x"></i>
                             </a>
-                            <span class="votes-count">1234</span>
-                            <a title="This Quesiton is not useful" class="vote-down off">
+                            <form action="{{ route('questions.vote', $question->id) }}" method="POST" id="vote-up-question-{{ $question->id }}">
+                                @csrf
+                                <input type="hidden" name="vote" value="1">
+                            </form>
+                            <span class="votes-count">{{ $question->votes_count }}</span>
+                            <a title="This Quesiton is not useful" class="vote-down  {{ Auth::guest() ? 'off' : '' }}"
+                            onclick="event.preventDefault(); document.getElementById('vote-down-question-{{ $question->id }}').submit();"
+                            >
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
+                            <form action="/questions/{{$question->id}}/vote" method="POST" id="vote-down-question-{{ $question->id }}">
+                                @csrf
+                                <input type="hidden" name="vote" value="-1">
+                            </form>
                             <a 
                             title="Click to mark this question as favorite (click again to undo)" 
                             class="favorite mt-2 {{ Auth::guest() ? 'off' : ($question->is_favorited ? 'favorited': '') }}"

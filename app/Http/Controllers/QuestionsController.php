@@ -109,4 +109,6 @@ class QuestionsController extends Controller
         return redirect()->route('questions.index')->with('success', "Your question has been Deleted!");
 
     }
+
+    
 }
