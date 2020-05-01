@@ -55,17 +55,23 @@
                         </div>
                         <div class="media-body">
                                 {{ $question->body }}
-                                <div class="float-right mt-3">
-                                    <span class="text-muted">Answered {{ $question->create_date}}</span>
-                                    <div class="media mt-2">
-                                        <a href="{{ $question->user->url }}" class="pr-2">
-                                            <img src="{{ $question->user->avatar }}" alt="no img" >
-                                        </a>
-                                        <div class="media-body ">
-                                            <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
-                                        </div>
+                               <div class="row">
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4">
+                                        <div class="mt-3">
+                                            <span class="text-muted">Asked {{ $question->create_date}}</span>
+                                            <div class="media mt-2">
+                                                <a href="{{ $question->user->url }}" class="pr-2">
+                                                    <img src="{{ $question->user->avatar }}" alt="no img" >
+                                                </a>
+                                                <div class="media-body ">
+                                                    <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
+                                                </div>
+                                            </div>
+                                        </div>  
                                     </div>
-                                </div>
+                               </div>
                         </div>
                     </div>
                 </div>
