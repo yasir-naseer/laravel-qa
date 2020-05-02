@@ -27,10 +27,7 @@
                                     <div class="col-4"></div>
                                     <div class="col-4">
                                         <div class="mt-3">
-                                        @include('shared.authors', [
-                                                'model' => $question,
-                                                'label' => 'Asked'
-                                           ])
+                                           <user-info v-bind:model="{{ $question }}" label="Asked"></user-info>
                                         </div>  
                                     </div>
                                </div>

@@ -20,10 +20,7 @@
             <div class="col-4">
             </div>
             <div class="col-4 ">
-                @include('shared.authors', [
-                    'model' => $answer,
-                    'label' => 'Answer'
-                ])
+                <user-info :model="{{ $answer }}" label="Answered"/>
             </div>
     </div>
               

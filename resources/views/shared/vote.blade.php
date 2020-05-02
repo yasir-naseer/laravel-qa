@@ -7,7 +7,7 @@
 @elseif($model instanceof App\Answer)
     @php 
         $name = 'answer';
-        $URLSagment = 'questions';
+        $URLSagment = 'answers';
     @endphp
 @endif
 
