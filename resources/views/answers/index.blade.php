@@ -1,5 +1,5 @@
 @if($answersCount > 0)
-    <div class="card-body">
+    <div class="card-body" v-cloak>
         <div class="card-title">
             <h2> {{ $answersCount . " " .  \Illuminate\Support\Str::plural('Answer', $answersCount ) }}</h2>
         </div>

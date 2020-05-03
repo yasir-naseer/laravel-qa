@@ -1,28 +1,37 @@
-<div class="media post">
-    @include('shared.vote', [
-        'model' => $answer
-    ])  
-    <div class="media-body">  
-        {{ $answer->body}}
-        <div class="row mt-3">
-            <div class="col-4">
-                @can('update', $answer)
-                    <a href="{{ route('questions.answers.edit', [$question->id, $answer->id]) }}" class="btn btn-sm btn-outline-success">Edit</a>
-                @endcan
-                @can('delete', $answer)
-                    <form action="{{ route('questions.answers.destroy', [$question->id, $answer->id] ) }}" method="POST" class="d-inline" onclick="return confirm('Are you sure?')"> 
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                    </form>
-                @endcan
+<answer :answer="{{ $answer }}" inline-template>
+    <div class="media post" ref="myid" id="mydiv">
+        @include('shared.vote', [
+                'model' => $answer
+            ])  
+        <div class="media-body">
+        <form id="form-1" v-if="editing === true" >  
+            <textarea  v-model="body" class="form-control" id="" cols="30" rows="10"></textarea> 
+               
+            <button class="btn btn-primary" @click="submit" :disabled="inValid">Update</button>    
+            <button class="btn btn-success" @click="cancel" type="button">Cancel</button>    
+
+        </form>
+
+        <div v-if="editing === false">
+            <div v-html="body"></div>
+            <div class="row mt-3">
+                <div class="col-4">
+                    @can('update', $answer)
+                        <a @click="edit" class="btn btn-sm btn-outline-success">Edit</a>
+                    @endcan
+                    @can('delete', $answer)
+                    <button @click="destroy" class="btn btn-sm btn-outline-danger">Delete</button>
+                    @endcan
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-4 ">
+                    <user-info :model="{{ $answer }}" label="Answered"><
+                </div>
             </div>
-            <div class="col-4">
-            </div>
-            <div class="col-4 ">
-                <user-info :model="{{ $answer }}" label="Answered"/>
-            </div>
+        </div>        
+        </div>
     </div>
-              
-    </div>
-</div>
+</answer>
+
+   
