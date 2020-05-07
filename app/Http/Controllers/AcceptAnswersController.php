@@ -12,6 +12,12 @@ class AcceptAnswersController extends Controller
         $this->authorize('accept', $answer);
 
         $answer->question->acceptBestAnswer($answer);
+
+        if(request()->expectsJson()) {
+            return response()->json([
+                'message' => 'You have acccepted this answer as best'
+            ]);
+        }
         return back();
         
     }

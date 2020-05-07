@@ -16,6 +16,20 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 Vue.use(VueIziToast);
 
+import policies from './policies';
+
+Vue.prototype.authorize = function(policy, model) {
+
+    if(window.AuthenticatorAssertionResponse.signedId) return false;
+
+    if(typeof policy === "string" && typeof model === "object") {
+        const user = window.Auth.user;
+
+        return policies[policy](user, model);
+    }
+
+}
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -30,6 +44,8 @@ Vue.use(VueIziToast);
 Vue.component('user-info', require('./components/UserInfo.vue').default);
 Vue.component('answer', require('./components/Answer.vue').default);
 Vue.component('favorite', require('./components/Favorite.vue').default);
+Vue.component('accept', require('./components/Accept.vue').default);
+
 
 
 /**
