@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a v-if="authorize('accept', answer)" title="mark this answer as best" 
+        <a v-if="canAccept" title="mark this answer as best" 
         :class="classes"
         @click="create">
             <i class="fas fa-check fa-2x"></i>
@@ -36,7 +36,7 @@ export default {
     },
     computed: {
         canAccept() {
-            return true;
+            return this.authorize('accept', this.answer);
         },
         accepted() {
             return !this.canAccept && this.isBest;

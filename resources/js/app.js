@@ -10,25 +10,13 @@ require('./fontawesome');
 window.Vue = require('vue');
 
 import VueIziToast from 'vue-izitoast';
-
-
 import 'izitoast/dist/css/iziToast.min.css';
+import Authorization from './authorization/authorize';
 
 Vue.use(VueIziToast);
+Vue.use(Authorization);
 
-import policies from './policies';
 
-Vue.prototype.authorize = function(policy, model) {
-
-    if(window.AuthenticatorAssertionResponse.signedId) return false;
-
-    if(typeof policy === "string" && typeof model === "object") {
-        const user = window.Auth.user;
-
-        return policies[policy](user, model);
-    }
-
-}
 
 /**
  * The following block of code may be used to automatically register your
