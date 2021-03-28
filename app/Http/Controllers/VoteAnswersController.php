@@ -17,6 +17,11 @@ class VoteAnswersController extends Controller
 
         auth()->user()->voteAnswer($answer, $vote);
 
+        if(request()->expectsJson()) 
+            return response()->json([
+                'message' => 'Thanks for your feedback' 
+            ]);
+
         return back();
     } 
 }

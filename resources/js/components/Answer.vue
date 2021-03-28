@@ -1,5 +1,41 @@
+<template>
+     <div class="media post" ref="myid" id="mydiv">
+        <vote :model="answer" name="answers"></vote>  
+        <div class="media-body">
+        <form id="form-1" v-if="editing === true" >  
+            <textarea  v-model="body" class="form-control" id="" cols="30" rows="10"></textarea> 
+               
+            <button class="btn btn-primary" @click="submit" :disabled="inValid">Update</button>    
+            <button class="btn btn-success" @click="cancel" type="button">Cancel</button>    
+
+        </form>
+
+        <div v-if="editing === false">
+            <div v-html="body"></div>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <a v-if="authorize('modify', answer)" @click="edit" class="btn btn-sm btn-outline-success">Edit</a>
+                    <button v-if="authorize('modify', answer)" @click="destroy" class="btn btn-sm btn-outline-danger">Delete</button>
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-4 ">
+                    <user-info :model="answer" label="Answered"></user-info>
+                </div>
+            </div>
+        </div>        
+        </div>
+    </div>
+</template>
 <script>
+import Vote from './Vote.vue';
+import UserInfo from './UserInfo.vue';
+
 export default {
+    components: {
+        Vote,
+        UserInfo
+    },
     props: ['answer'],
     data() {
         return {
@@ -52,9 +88,7 @@ export default {
                     instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
                         axios.delete(`/questions/${this.questionId}/answers/${this.answerId}`)
                         .then(res => {
-                            $(this.$el).fadeOut(500, () =>  {
-                                this.$toast.success(res.data.message, "Success", { timeout: 3000 });
-                            });
+                            this.$emit('deleted');
                         })
                    
                 }, true],

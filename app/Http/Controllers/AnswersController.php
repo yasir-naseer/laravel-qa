@@ -8,7 +8,13 @@ use Illuminate\Http\Request;
 
 class AnswersController extends Controller
 {
+    public function _construct() {
+        $this->middleware('auth')->except('index');
+    }
     
+    public function index(Question $question) {
+        return $question->answers()->with('user')->simplePaginate(10);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -22,7 +28,14 @@ class AnswersController extends Controller
             'body' => 'required'
             ]);
 
-        $question->answers()->create(['body' => $request->body, 'user_id' => \Auth::id()]);
+        $answer = $question->answers()->create(['body' => $request->body, 'user_id' => \Auth::id()]);
+
+        if($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Answer has been created',
+                'answer' => $answer->load('user')
+            ]);
+        }
 
         return back()->with('success', "Your answer has been created");
     }

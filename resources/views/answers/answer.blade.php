@@ -1,8 +1,6 @@
 <answer :answer="{{ $answer }}" inline-template>
     <div class="media post" ref="myid" id="mydiv">
-        @include('shared.vote', [
-                'model' => $answer
-            ])  
+        <vote :model="{{ $answer}}" name="answers"></vote>  
         <div class="media-body">
         <form id="form-1" v-if="editing === true" >  
             <textarea  v-model="body" class="form-control" id="" cols="30" rows="10"></textarea> 
